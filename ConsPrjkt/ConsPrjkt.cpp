@@ -4,13 +4,13 @@
 #include <sstream>
 
 
-double rechnung(int pzFront, int pzBord, int pzHinten, int pzDurch, int pzKaliber)
+double rechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzKaliber)
 {
-    double doPzFront = static_cast<double>(pzFront) / 100;
-    double doPzBoard = static_cast<double>(pzBord) / 100;
-    double doPzHinten = static_cast<double>(pzHinten) / 100;
-    double doPzDurch = static_cast<double>(pzDurch) / 100;
-    double doPzKaliber = static_cast<double>(pzKaliber) / 100;
+    double doPzFront = static_cast<double>(pzFront) / 100; // Дециметры
+    double doPzBoard = static_cast<double>(pzBord) / 100; // Дециметры
+    double doPzHinten = static_cast<double>(pzHinten) / 100; // Дециметры
+    double doPzGeschwindigkeit = static_cast<double>(pzGeschwindigkeit); // Метры в секунду
+    double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
     return 0;
 }
 
@@ -25,7 +25,7 @@ int main()
     
     getline(iFile, line);
     string pzName;
-    int pzFront, pzBord, pzHinten, pzDurch, pzKaliber;
+    int pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber;
 
     cout << "Gib mir nummer des Tanks (1 - 30): ";
     cin >> PzNum;
@@ -42,17 +42,17 @@ int main()
     getline(ss, cell, ','); pzFront = stoi(cell);
     getline(ss, cell, ','); pzBord = stoi(cell);
     getline(ss, cell, ','); pzHinten = stoi(cell);
-    getline(ss, cell, ','); pzDurch = stoi(cell);
+    getline(ss, cell, ','); pzGeschwindigkeit = stoi(cell);
     getline(ss, cell, ','); pzKaliber = stoi(cell);
 
     cout << "Tank: " << pzName << endl;
     cout << "Front: " << pzFront << "mm" << endl;
     cout << "Bord: " << pzBord << "mm" << endl;
     cout << "Hinten: " << pzHinten << "mm" << endl;
-    cout << "Durch: " << pzDurch << "mm" << endl;
+    cout << "Geschossgeschwindigkeit: " << pzGeschwindigkeit << "m/c" << endl;
     cout << "Kaliber: " << pzKaliber << "mm" << endl;
     
-    cout << rechnung(pzFront, pzBord, pzHinten, pzDurch, pzKaliber);
+    cout << rechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber);
 
     iFile.close();
     return 0;
