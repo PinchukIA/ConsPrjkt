@@ -1,4 +1,4 @@
-PzName,pzFront,pzBord,pzHinten,pzGeschwindigkeit,pzMasse,pzKaliber
+pzName,pzFront,pzBord,pzHinten,pzGeschwindigkeit,pzMasse,pzKaliber
 T-34-85,90,52,47,792,9.2,85
 KV-1 (1941),90,75,70,662,6.3,76
 IS-2,120,90,60,795,25.0,122
