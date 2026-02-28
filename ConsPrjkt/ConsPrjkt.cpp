@@ -19,7 +19,24 @@ double UnregularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindi
 
     return deMarre;
 }
-double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzMasse, int pzKaliber, double entfernung)
+
+double ChaffeRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, double pzMasse, int pzKaliber, double entfernung)
+{
+    double doPzFront = static_cast<double>(pzFront) / 100; // Дециметры
+    double doPzBoard = static_cast<double>(pzBord) / 100; // Дециметры
+    double doPzHinten = static_cast<double>(pzHinten) / 100; // Дециметры
+    double doPzGeschwindigkeit = static_cast<double>(pzGeschwindigkeit); // Метры в секунду
+    double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
+    double base = 2000.0 / (2000.0 + entfernung);
+
+    double treffer = doPzGeschwindigkeit * pow(base, 0.75); // Скорость встречи снаряда с целью
+
+    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasse, 0.71) / pow(doPzKaliber, 1.07));
+
+    return deMarre;
+}
+
+double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, double pzMasse, int pzKaliber, double entfernung)
 {
     double doPzFront = static_cast<double>(pzFront) / 100; // Дециметры
     double doPzBoard = static_cast<double>(pzBord) / 100; // Дециметры
@@ -34,6 +51,7 @@ double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigk
 
     return deMarre;
 }
+
 
 int main()
 {
@@ -80,15 +98,17 @@ int main()
     double entfernung;
     cin >> entfernung;
     
-    if (pzName == "Pz.Kpfw. V Panther" || pzName == "Jagdpanther") {
+    if (pzName.find("Panther") != string::npos || pzName.find("Jagdpanther") != string::npos) {
         
         cout << "\nAntwort nach der Formel de Marra: " << UnregularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzMasse, pzKaliber, entfernung) << endl;
     }
+    else if (pzName.find("Chaffee") != string::npos) {
+        cout << "\nAntwort nach der Formel de Marra: " << ChaffeRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzMasse, pzKaliber, entfernung) << endl;
+    }
     else
     {
-        cout << "\nAntwort nach der Formel de Marra: " << UnregularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzMasse, pzKaliber, entfernung) << endl;
+        cout << "\nAntwort nach der Formel de Marra: " << RegularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzMasse, pzKaliber, entfernung) << endl;
     }
-
 
     iFile.close();
     return 0;
