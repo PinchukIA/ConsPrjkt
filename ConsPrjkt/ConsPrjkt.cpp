@@ -14,7 +14,10 @@ double UnregularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindi
     double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
 
     double treffer = doPzGeschwindigkeit * pow(2000.0 / (2000.0 + entfernung), 0.28); // Скорость встречи снаряда с целью
-    return treffer;
+
+
+
+    return 0;
 }
 double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzKaliber, double entfernung)
 {
@@ -24,8 +27,11 @@ double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigk
     double doPzGeschwindigkeit = static_cast<double>(pzGeschwindigkeit); // Метры в секунду
     double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
     double base = 2000.0 / (2000.0 + entfernung);
+
     double treffer = doPzGeschwindigkeit * pow(base, 0.65); // Скорость встречи снаряда с целью
-    return treffer;
+
+
+    return 0;
 }
 
 int main()
@@ -39,7 +45,7 @@ int main()
     
     getline(iFile, line);
     string pzName;
-    int pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber;
+    int pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzMasse, pzKaliber;
 
     cout << "Gib mir nummer des Tanks (1 - 30): ";
     cin >> PzNum;
@@ -57,6 +63,7 @@ int main()
     getline(ss, cell, ','); pzBord = stoi(cell);
     getline(ss, cell, ','); pzHinten = stoi(cell);
     getline(ss, cell, ','); pzGeschwindigkeit = stoi(cell);
+    getline(ss, cell, ','); pzMasse = stoi(cell);
     getline(ss, cell, ','); pzKaliber = stoi(cell);
 
     cout << "Tank: " << pzName << endl;
@@ -64,6 +71,7 @@ int main()
     cout << "Bord: " << pzBord << "mm" << endl;
     cout << "Hinten: " << pzHinten << "mm" << endl;
     cout << "Geschossgeschwindigkeit: " << pzGeschwindigkeit << "m/c" << endl;
+    cout << "Geschossmasse: " << pzMasse << "kg" << endl;
     cout << "Kaliber: " << pzKaliber << "mm" << endl;
 
     cout << "Geben Sie die Entfernung zum Ziel ein(m): ";
@@ -71,13 +79,13 @@ int main()
     cin >> entfernung;
     
     if (pzName == "Pz.Kpfw. V Panther" || pzName == "Jagdpanther") {
-        cout << UnregularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) << endl;
+        cout << "Zum Zeitpunkt der Kollision hat das Geschoss eine Geschwindigkeit von " << UnregularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) << " m/c" << endl;
     }
     else
     {
-        cout << RegularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) << endl;
+        cout << "Geschoss hat " << RegularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) 
+            << " m/c Geschwindigkeit" << endl;
     }
-
 
 
     iFile.close();
