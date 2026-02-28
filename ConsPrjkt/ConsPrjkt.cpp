@@ -2,16 +2,30 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cmath>
 
 
-double rechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzKaliber)
+double UnregularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzKaliber, double entfernung)
 {
     double doPzFront = static_cast<double>(pzFront) / 100; // Дециметры
     double doPzBoard = static_cast<double>(pzBord) / 100; // Дециметры
     double doPzHinten = static_cast<double>(pzHinten) / 100; // Дециметры
     double doPzGeschwindigkeit = static_cast<double>(pzGeschwindigkeit); // Метры в секунду
     double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
-    return 0;
+
+    double treffer = doPzGeschwindigkeit * pow(2000.0 / (2000.0 + entfernung), 0.28); // Скорость встречи снаряда с целью
+    return treffer;
+}
+double RegularRechnung(int pzFront, int pzBord, int pzHinten, int pzGeschwindigkeit, int pzKaliber, double entfernung)
+{
+    double doPzFront = static_cast<double>(pzFront) / 100; // Дециметры
+    double doPzBoard = static_cast<double>(pzBord) / 100; // Дециметры
+    double doPzHinten = static_cast<double>(pzHinten) / 100; // Дециметры
+    double doPzGeschwindigkeit = static_cast<double>(pzGeschwindigkeit); // Метры в секунду
+    double doPzKaliber = static_cast<double>(pzKaliber) / 100; // Дециметры
+    double base = 2000.0 / (2000.0 + entfernung);
+    double treffer = doPzGeschwindigkeit * pow(base, 0.65); // Скорость встречи снаряда с целью
+    return treffer;
 }
 
 int main()
@@ -51,8 +65,20 @@ int main()
     cout << "Hinten: " << pzHinten << "mm" << endl;
     cout << "Geschossgeschwindigkeit: " << pzGeschwindigkeit << "m/c" << endl;
     cout << "Kaliber: " << pzKaliber << "mm" << endl;
+
+    cout << "Geben Sie die Entfernung zum Ziel ein(m): ";
+    double entfernung;
+    cin >> entfernung;
     
-    cout << rechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber);
+    if (pzName == "Pz.Kpfw. V Panther" || pzName == "Jagdpanther") {
+        cout << UnregularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) << endl;
+    }
+    else
+    {
+        cout << RegularRechnung(pzFront, pzBord, pzHinten, pzGeschwindigkeit, pzKaliber, entfernung) << endl;
+    }
+
+
 
     iFile.close();
     return 0;
