@@ -150,15 +150,15 @@ int main()
         }
         else
         {
-            cout << "Bordpanzer: kein Schaden";
+            cout << "Bordpanzer: kein Schaden\n";
         }
         if (PzDurch * 100 - 7 > pzHintenZ)
         {
-            cout << "Rustungsruckseite: Durchschlag!";
+            cout << "Rustungsruckseite: Durchschlag!\n";
         }
         else
         {
-            cout << "Rustungsruckseite: kein Schaden";
+            cout << "Rustungsruckseite: kein Schaden\n";
         }
     }
     else if (pzNameS.find("Chaffee") != string::npos) {
@@ -179,15 +179,15 @@ int main()
         }
         else
         {
-            cout << "Bordpanzer: kein Schaden";
+            cout << "Bordpanzer: kein Schaden\n";
         }
         if (PzDurch * 100 - 7 > pzHintenZ)
         {
-            cout << "Rustungsruckseite: Durchschlag!";
+            cout << "Rustungsruckseite: Durchschlag!\n";
         }
         else
         {
-            cout << "Rustungsruckseite: kein Schaden";
+            cout << "Rustungsruckseite: kein Schaden\n";
         }
     }
     else
@@ -210,15 +210,15 @@ int main()
         }
         else
         {
-            cout << "Bordpanzer: kein Schaden";
+            cout << "Bordpanzer: kein Schaden\n";
         }
         if (PzDurch * 100 - 7 > pzHintenZ)
         {
-            cout << "Rustungsruckseite: Durchschlag!";
+            cout << "Rustungsruckseite: Durchschlag!\n";
         }
         else
         {
-            cout << "Rustungsruckseite: kein Schaden";
+            cout << "Rustungsruckseite: kein Schaden\n";
         }
     }
 
