@@ -5,51 +5,38 @@
 #include <cmath>
 
 
-double UnregularRechnung(double pzFrontS, double pzBordS, double pzHintenS, double pzGeschwindigkeitS, double pzMasseS, double pzKaliberS, double entfernung)
+double UnregularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
-    double doPzFront = pzFrontS / 100; // Дециметры
-    double doPzBoard = pzBordS / 100; // Дециметры
-    double doPzHinten = pzHintenS / 100; // Дециметры
-    double doPzGeschwindigkeit = pzGeschwindigkeitS; // Метры в секунду
-    double doPzKaliber = pzKaliberS / 100; // Дециметры
+    double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
+    double doPzKaliber = pzKaliber / 100; // Дециметры
 
     double treffer = doPzGeschwindigkeit * pow(2000.0 / (2000.0 + entfernung), 0.28); // Скорость встречи снаряда с целью
 
-    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasseS, 0.71) / pow(doPzKaliber, 1.07));
+    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasse, 0.71) / pow(doPzKaliber, 1.07));
 
     return deMarre;
 }
 
-double ChaffeRechnung(double pzFrontS, double pzBordS, double pzHintenS, double pzGeschwindigkeitS, double pzMasseS, double pzKaliberS, double entfernung)
+double ChaffeRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
-    double doPzFront = pzFrontS / 100; // Дециметры
-    double doPzBoard = pzBordS / 100; // Дециметры
-    double doPzHinten = pzHintenS / 100; // Дециметры
-    double doPzGeschwindigkeit = pzGeschwindigkeitS; // Метры в секунду
-    double doPzKaliber = pzKaliberS / 100; // Дециметры
+    double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
+    double doPzKaliber = pzKaliber / 100; // Дециметры
     
     double base = 2000.0 / (2000.0 + entfernung);
-
     double treffer = doPzGeschwindigkeit * pow(base, 0.75); // Скорость встречи снаряда с целью
-
-    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasseS, 0.71) / pow(doPzKaliber, 1.07));
+    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasse, 0.71) / pow(doPzKaliber, 1.07));
 
     return deMarre;
 }
 
-double RegularRechnung(double pzFrontS, double pzBordS, double pzHintenS, double pzGeschwindigkeitS, double pzMasseS, double pzKaliberS, double entfernung)
+double RegularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
-    double doPzFront = pzFrontS / 100; // Дециметры
-    double doPzBoard = pzBordS / 100; // Дециметры
-    double doPzHinten = pzHintenS / 100; // Дециметры
-    double doPzGeschwindigkeit = pzGeschwindigkeitS; // Метры в секунду
-    double doPzKaliber = pzKaliberS / 100; // Дециметры
+    double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
+    double doPzKaliber = pzKaliber / 100; // Дециметры
     
     double base = 2000.0 / (2000.0 + entfernung);
-
     double treffer = doPzGeschwindigkeit * pow(base, 0.65); // Скорость встречи снаряда с целью
-
-    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasseS, 0.71) / pow(doPzKaliber, 1.07));
+    double deMarre = pow(treffer / 2000.0, 1.43) * (pow(pzMasse, 0.71) / pow(doPzKaliber, 1.07));
 
     return deMarre;
 }
@@ -87,6 +74,7 @@ int main()
     getline(ss, cell, ','); pzMasseS = stod(cell);
     getline(ss, cell, ','); pzKaliberS = stod(cell);
 
+    cout << "===== Informationen zum Schiesspanzer =====" << endl;
     cout << "Tank: " << pzNameS << endl;
     cout << "Front: " << pzFrontS << "mm" << endl;
     cout << "Bord: " << pzBordS << "mm" << endl;
@@ -95,7 +83,11 @@ int main()
     cout << "Geschossmasse: " << pzMasseS << "kg" << endl;
     cout << "Kaliber: " << pzKaliberS << "mm" << endl;
 
-    
+    double Geschwindigkeit = pzGeschwindigkeitS;
+    double pzMasse = pzMasseS;
+    double pzKaliber = pzKaliberS;
+
+
     iFile.clear();    // Сброс флагов ошибок
     iFile.seekg(0);
     string line = "";
@@ -104,7 +96,7 @@ int main()
     string pzNameZ;
     double pzFrontZ, pzBordZ, pzHintenZ, pzGeschwindigkeitZ, pzKaliberZ, pzMasseZ;
 
-    cout << "Auswahl eines ZeilPanzers (1 - 30): ";
+    cout << "\n\nAuswahl eines ZeilPanzers (1 - 30): ";
     cin >> PzNumZ;
 
     for (int i = 1; i < PzNumZ - 1; i++) {
@@ -122,6 +114,7 @@ int main()
     getline(ss2, cell, ','); pzMasseZ = stod(cell);
     getline(ss2, cell, ','); pzKaliberZ = stod(cell);
 
+    cout << "===== Informationen zum Zieltank =====" << endl;
     cout << "Tank: " << pzNameZ << endl;
     cout << "Front: " << pzFrontZ << "mm" << endl;
     cout << "Bord: " << pzBordZ << "mm" << endl;
@@ -130,8 +123,9 @@ int main()
     cout << "Geschossmasse: " << pzMasseZ << "kg" << endl;
     cout << "Kaliber: " << pzKaliberZ << "mm" << endl;
 
-    
-
+    double pzFront = pzFrontZ;
+    double pzBord = pzBordZ;
+    double pzHinten = pzHintenZ;
 
     cout << "Geben Sie die Entfernung zum Ziel ein(m): ";
     double entfernung;
@@ -139,15 +133,93 @@ int main()
     
     if (pzNameS.find("Panther") != string::npos || pzNameS.find("Jagdpanther") != string::npos) {
         
-        cout << "\nAntwort nach der Formel de Marra: " << UnregularRechnung(pzFrontS, pzBordS, pzHintenS, 
-            pzGeschwindigkeitS, pzMasseS, pzKaliberS, entfernung) << endl;
+        double PzDurch = UnregularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
+        if (PzDurch * 100 - 7 > pzFrontZ)
+        {
+            cout << "Frontalrustung: Durchschlag!\n";
+            
+        }
+        else
+        {
+            cout << "Frontalrustung: kein Schaden\n";
+            
+        }
+        if (PzDurch * 100 > pzBordZ)
+        {
+            cout << "Bordpanzer: Durchschlag!\n";
+        }
+        else
+        {
+            cout << "Bordpanzer: kein Schaden";
+        }
+        if (PzDurch * 100 - 7 > pzHintenZ)
+        {
+            cout << "Rustungsruckseite: Durchschlag!";
+        }
+        else
+        {
+            cout << "Rustungsruckseite: kein Schaden";
+        }
     }
     else if (pzNameS.find("Chaffee") != string::npos) {
-        cout << "\nAntwort nach der Formel de Marra: " << ChaffeRechnung(pzFrontS, pzBordS, pzHintenS, pzGeschwindigkeitS, pzMasseS, pzKaliberS, entfernung) << endl;
+        double PzDurch = ChaffeRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
+        if (PzDurch * 100 - 7 > pzFrontZ)
+        {
+            cout << "Frontalrustung: Durchschlag!\n";
+            
+        }
+        else
+        {
+            cout << "Frontalrustung: kein Schaden\n";
+            
+        }
+        if (PzDurch * 100 - 7 > pzBordZ)
+        {
+            cout << "Bordpanzer: Durchschlag!\n";
+        }
+        else
+        {
+            cout << "Bordpanzer: kein Schaden";
+        }
+        if (PzDurch * 100 - 7 > pzHintenZ)
+        {
+            cout << "Rustungsruckseite: Durchschlag!";
+        }
+        else
+        {
+            cout << "Rustungsruckseite: kein Schaden";
+        }
     }
     else
     {
-        cout << "\nAntwort nach der Formel de Marra: " << RegularRechnung(pzFrontS, pzBordS, pzHintenS, pzGeschwindigkeitS, pzMasseS, pzKaliberS, entfernung) << endl;
+        double PzDurch = RegularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
+        if (PzDurch * 100 - 7 > pzFrontZ)
+        {
+            cout << "Frontalrustung: Durchschlag!\n";
+            
+        }
+        else
+        {
+            cout << "Frontalrustung: kein Schaden\n";
+            
+        }
+        if (PzDurch * 100 - 7 > pzBordZ)
+        {
+            cout << "Bordpanzer: Durchschlag!\n";
+
+        }
+        else
+        {
+            cout << "Bordpanzer: kein Schaden";
+        }
+        if (PzDurch * 100 - 7 > pzHintenZ)
+        {
+            cout << "Rustungsruckseite: Durchschlag!";
+        }
+        else
+        {
+            cout << "Rustungsruckseite: kein Schaden";
+        }
     }
 
     iFile.close();
