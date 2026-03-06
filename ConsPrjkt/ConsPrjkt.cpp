@@ -130,97 +130,49 @@ int main()
     cout << "Geben Sie die Entfernung zum Ziel ein(m): ";
     double entfernung;
     cin >> entfernung;
-    
+    double PzDurch;
+
     if (pzNameS.find("Panther") != string::npos || pzNameS.find("Jagdpanther") != string::npos) {
+        PzDurch = UnregularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
         
-        double PzDurch = UnregularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
-        if (PzDurch * 100 - 7 > pzFrontZ)
-        {
-            cout << "Frontalrustung: Durchschlag!\n";
-            
-        }
-        else
-        {
-            cout << "Frontalrustung: kein Schaden\n";
-            
-        }
-        if (PzDurch * 100 > pzBordZ)
-        {
-            cout << "Bordpanzer: Durchschlag!\n";
-        }
-        else
-        {
-            cout << "Bordpanzer: kein Schaden\n";
-        }
-        if (PzDurch * 100 - 7 > pzHintenZ)
-        {
-            cout << "Rustungsruckseite: Durchschlag!\n";
-        }
-        else
-        {
-            cout << "Rustungsruckseite: kein Schaden\n";
-        }
     }
     else if (pzNameS.find("Chaffee") != string::npos) {
-        double PzDurch = ChaffeRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
-        if (PzDurch * 100 - 7 > pzFrontZ)
-        {
-            cout << "Frontalrustung: Durchschlag!\n";
-            
-        }
-        else
-        {
-            cout << "Frontalrustung: kein Schaden\n";
-            
-        }
-        if (PzDurch * 100 - 7 > pzBordZ)
-        {
-            cout << "Bordpanzer: Durchschlag!\n";
-        }
-        else
-        {
-            cout << "Bordpanzer: kein Schaden\n";
-        }
-        if (PzDurch * 100 - 7 > pzHintenZ)
-        {
-            cout << "Rustungsruckseite: Durchschlag!\n";
-        }
-        else
-        {
-            cout << "Rustungsruckseite: kein Schaden\n";
-        }
+        PzDurch = ChaffeRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
     }
-    else
-    {
-        double PzDurch = RegularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
-        if (PzDurch * 100 - 7 > pzFrontZ)
-        {
-            cout << "Frontalrustung: Durchschlag!\n";
-            
-        }
-        else
-        {
-            cout << "Frontalrustung: kein Schaden\n";
-            
-        }
-        if (PzDurch * 100 - 7 > pzBordZ)
-        {
-            cout << "Bordpanzer: Durchschlag!\n";
+    else { 
+        PzDurch = RegularRechnung(Geschwindigkeit, pzMasse, pzKaliber, entfernung);
+    }
+    struct Projektion {
+        string name;
+        double wert;
+    } projektionen[] = {
+        {"Frontalrustung", pzFrontZ},
+        {"Bordpanzer", pzBordZ},
+        {"Rustungsruckseite", pzHintenZ}
+    };
 
+    for (const auto& p : projektionen) {
+        cout << p.name << ": ";
+        if (PzDurch * 100 - 7 > p.wert) {
+            cout << "Durchschlag!\n";
         }
-        else
-        {
-            cout << "Bordpanzer: kein Schaden\n";
-        }
-        if (PzDurch * 100 - 7 > pzHintenZ)
-        {
-            cout << "Rustungsruckseite: Durchschlag!\n";
-        }
-        else
-        {
-            cout << "Rustungsruckseite: kein Schaden\n";
+        else {
+            cout << "kein Schaden\n";
         }
     }
+
+    ofstream daten("resultat.txt");
+    daten << "Choosing a technique:" << "\n=========================" << endl;
+    daten << "Tank shooter: " << pzNameS << endl;
+    daten << "Target tank: " << pzNameZ << endl;
+    daten << "Distanz: " << entfernung << " m" << endl;
+    daten << "\nCalculation results:" << "\n=========================" << endl;
+    daten << "Front: " << (PzDurch * 100 - 7 > pzFrontZ ? "Durchschlag" : "Kein Schaden") << endl;
+    daten << "Bord: " << (PzDurch * 100 - 7 > pzBordZ ? "Durchschlag" : "Kein Schaden") << endl;
+    daten << "Hinten: " << (PzDurch * 100 - 7 > pzHintenZ ? "Durchschlag" : "Kein Schaden") << endl;
+
+
+    daten.close();
 
     iFile.close();
     return 0;
