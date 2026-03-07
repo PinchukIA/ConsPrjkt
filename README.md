@@ -39,4 +39,4 @@
 
 - C++11
 - Стандартная библиотека (iostream, fstream, string, sstream, cmath, vector)
-- Прстой CSV парсинг
+- Простой CSV парсинг
