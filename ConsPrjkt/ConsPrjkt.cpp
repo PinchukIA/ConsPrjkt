@@ -8,11 +8,9 @@
 #include <limits>
 
 
-
-using namespace std; // Добавил для удобства
-
 double UnregularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
+    using namespace std;
     double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
     double doPzKaliber = pzKaliber / 100; // Дециметры
 
@@ -24,6 +22,7 @@ double UnregularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKali
 
 double ChaffeRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
+    using namespace std;
     double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
     double doPzKaliber = pzKaliber / 100; // Дециметры
 
@@ -36,6 +35,7 @@ double ChaffeRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber
 
 double RegularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKaliber, double entfernung)
 {
+    using namespace std;
     double doPzGeschwindigkeit = pzGeschwindigkeit; // Метры в секунду
     double doPzKaliber = pzKaliber / 100; // Дециметры
 
@@ -46,6 +46,7 @@ double RegularRechnung(double pzGeschwindigkeit, double pzMasse, double pzKalibe
     return deMarre;
 }               
 void waitForEnter() {
+    using namespace std;
     cout << "\nTap Enter...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -57,6 +58,7 @@ void clearScreen() {
 
 int main()
 {
+    using namespace std;
     int PzNumS = 0, PzNumZ = 0; 
 
     int choice;
@@ -69,14 +71,14 @@ int main()
 
     do {
         clearScreen();
-        cout << "\n--- Hauptmenu ---\n";
+        cout << "\n--- Main menu ---\n";
         cout << "1. Tech list \n";
-        cout << "2. Tank shooting \n";
-        cout << "3. Tank target\n";
-        cout << "4. Enter the distance\n";
-        cout << "5. Make a calculation\n";
+        cout << "2. Select the firing tank \n";
+        cout << "3. Select the target tank\n";
+        cout << "4. Enter distance\n";
+        cout << "5. Calculate\n";
         cout << "0. Exit\n";
-        cout << "Seine Wahl: ";
+        cout << "Your choice: ";
         cin >> choice;
 
         switch (choice) {
@@ -115,7 +117,7 @@ int main()
 
             getline(iFile, lineS);
 
-            cout << "Choice of a shooting tank (1 - 30): ";
+            cout << "Choose firing tank (1 - 30): ";
             cin >> PzNumS;
 
             for (int i = 1; i < PzNumS; i++) {
@@ -136,11 +138,11 @@ int main()
 
             cout << "===== Information about a shooting tank =====" << endl;
             cout << "Tank: " << pzNameS << endl;
-            cout << "Front: " << pzFrontS << "mm" << endl;
-            cout << "Bord: " << pzBordS << "mm" << endl;
-            cout << "Behind: " << pzHintenS << "mm" << endl;
-            cout << "Speed of a projectile: " << pzGeschwindigkeitS << "m/c" << endl;
-            cout << "Mass of a projectile: " << pzMasseS << "kg" << endl;
+            cout << "Front armor: " << pzFrontS << "mm" << endl;
+            cout << "Side armor: " << pzBordS << "mm" << endl;
+            cout << "Rear armor: " << pzHintenS << "mm" << endl;
+            cout << "Projectile velocity: " << pzGeschwindigkeitS << "m/c" << endl;
+            cout << "Projectile mass: " << pzMasseS << "kg" << endl;
             cout << "Caliber: " << pzKaliberS << "mm" << endl;
 
             Geschwindigkeit = pzGeschwindigkeitS;
@@ -159,7 +161,7 @@ int main()
             iFile.open("input.csv");
             getline(iFile, line);
 
-            cout << "\n\nChoice of a target tank (1 - 30): ";
+            cout << "\n\nChoose the target tank (1 - 30): ";
             cin >> PzNumZ;
 
             for (int i = 1; i < PzNumZ; i++) {
@@ -180,11 +182,11 @@ int main()
 
             cout << "===== Information about a target tank =====" << endl;
             cout << "Tank: " << pzNameZ << endl;
-            cout << "Front: " << pzFrontZ << "mm" << endl;
-            cout << "Bord: " << pzBordZ << "mm" << endl;
-            cout << "Behind: " << pzHintenZ << "mm" << endl;
-            cout << "Speed of a projectile: " << pzGeschwindigkeitZ << "m/c" << endl;
-            cout << "Mass of a projectile: " << pzMasseZ << "kg" << endl;
+            cout << "Front armor: " << pzFrontZ << "mm" << endl;
+            cout << "Side armor: " << pzBordZ << "mm" << endl;
+            cout << "Rear armor: " << pzHintenZ << "mm" << endl;
+            cout << "Projectile velocity: " << pzGeschwindigkeitZ << "m/s" << endl;
+            cout << "Projectile mass: " << pzMasseZ << "kg" << endl;
             cout << "Caliber: " << pzKaliberZ << "mm" << endl;
 
             pzFront = pzFrontZ;
@@ -197,7 +199,7 @@ int main()
         case 4:
         {
             clearScreen();
-            cout << "Enter the distance to the tank (m): ";
+            cout << "Enter distance to the target (m): ";
             cin >> entfernung;
             break;
         }
@@ -221,9 +223,9 @@ int main()
                 string name;
                 double wert;
             } projektionen[] = {
-                {"\nFrontal armor", pzFrontZ},
-                {"Bord armor", pzBordZ},
-                {"Back side", pzHintenZ}
+                {"\nFront armor", pzFrontZ},
+                {"Side armor:", pzBordZ},
+                {"Rear armor", pzHintenZ}
             };
 
             for (const auto& p : projektionen) {
@@ -237,14 +239,14 @@ int main()
             }
 
             ofstream daten("resultat.txt");
-            daten << "Choosing a technique:" << "\n=========================" << endl;
-            daten << "Tank shooter: " << pzNameS << endl;
+            daten << "Selected vehicles:" << "\n=========================" << endl;
+            daten << "Firing tank: " << pzNameS << endl;
             daten << "Target tank: " << pzNameZ << endl;
-            daten << "Distanz: " << entfernung << "m" << endl;
-            daten << "\nCalculation results:" << "\n=========================" << endl;
-            daten << "Front: " << (PzDurch * 100 - 7 > pzFrontZ ? "Target destroyed!" : "No damage") << endl;
-            daten << "Bord: " << (PzDurch * 100 - 7 > pzBordZ ? "Target destroyed!" : "No damage") << endl;
-            daten << "Behind: " << (PzDurch * 100 - 7 > pzHintenZ ? "Target destroyed!" : "No damage") << endl;
+            daten << "Distance: " << entfernung << "m" << endl;
+            daten << "\nResults:" << "\n=========================" << endl;
+            daten << "Front armor: " << (PzDurch * 100 - 7 > pzFrontZ ? "Target destroyed!" : "No damage") << endl;
+            daten << "Side armor: " << (PzDurch * 100 - 7 > pzBordZ ? "Target destroyed!" : "No damage") << endl;
+            daten << "Rear armor: " << (PzDurch * 100 - 7 > pzHintenZ ? "Target destroyed!" : "No damage") << endl;
 
             daten.close();
             waitForEnter();

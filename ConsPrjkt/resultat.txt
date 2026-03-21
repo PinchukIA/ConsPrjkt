@@ -1,0 +1,11 @@
+Selected vehicles:
+=========================
+Firing tank: KV-1 (1941)
+Target tank: IS-2
+Distance: 400m
+
+Results:
+=========================
+Front armor: No damage
+Side armor: No damage
+Rear armor: Target destroyed!
